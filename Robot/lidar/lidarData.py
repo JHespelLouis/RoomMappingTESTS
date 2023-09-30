@@ -18,14 +18,11 @@ class LidarData:
     """
     startCharacter = 0x54
 
-
-
     def verify_integrity(self):
         if len(self.dataPacket) != 47:
             ''' dataPacket expected to be a string of 47 bytes following the structure
                     defined on page 5 of ./Robot/Documentation/Communication Protocol.pdf'''
             raise Exception("data packet not the right length")
-
 
     def arrange_data(self):
         self.radarSpeed = int((self.dataPacket[3]+self.dataPacket[2]), 16)
@@ -56,6 +53,12 @@ class LidarData:
         self.verify_integrity()
         self.arrange_data()
 
+    def attributes_to_dict(self):
+        return {
+            'radarSpeed': self.radarSpeed,
+            'timestamp' : self.timestamp,
+            'dataPoints' : self.dataPoints
+        }
 
 if __name__ == '__main__':
     testData = """54 2C 68 08 AB 7E E0 00 E4 DC 00 E2 D9 00 E5 D5 00 E3 D3 00 E4 D0 00 E9 CD 00 E4 CA 00 E2 C7 00 E9 C5 00 E5 C2 00 E5 C0 00 E5 BE 82 3A 1A 50"""
