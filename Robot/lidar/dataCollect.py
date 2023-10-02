@@ -12,6 +12,7 @@ ser = serial.Serial(port='COM4',
 packets = []
 
 with open('mock.txt', 'w') as f:
+    cli = client(HOST='192.168.68.64')
     loopFlag = True
     loopCounter = 0
     tmpString = ''
