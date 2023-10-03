@@ -13,6 +13,7 @@ class client:
 
     def send_message(self, message):
         self.s.sendto(str(message).encode(), (self.HOST, self.PORT))
+        print('send')
 
     def cleanup(self):
         self.s.close()
