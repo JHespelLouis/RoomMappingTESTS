@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     fontFamily: 'sans-serif',
     color: 'white',
     textAlign: 'center',
-    marginTop: 20, // Adjust the margin top value as needed
+    marginTop: 20,
     width: '100%',
   },
   button: {
