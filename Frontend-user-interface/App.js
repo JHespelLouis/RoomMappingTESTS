@@ -19,7 +19,7 @@ function App() {
           initialRouteName='Home'
           screenOptions={{
             headerStyle: {
-              backgroundColor: '#112D4E',
+              backgroundColor: 'black',
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
