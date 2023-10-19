@@ -14,16 +14,6 @@ import LogoTitle from './screens/LogoTitle';
 const Stack = createNativeStackNavigator();
 
 function App() {
-  const [backendData, setBackendData] = useState([{}])
-  useEffect(() => {
-      fetch("/api").then(
-          response => response.json()
-      ).then(
-          data => {
-              setBackendData(data)
-          }
-      )
-  }, [])
   return (
     <View style={{ flex: 1}}>
       <NavigationContainer>
@@ -52,15 +42,6 @@ function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
-        <div>
-        {(typeof backendData.users === 'undefined') ? (
-            <p>Loading...</p>
-        ) : (
-            backendData.users.map((user,i) => (
-                <p key={i}> {user}</p>
-            ))
-        )}
-        </div>,
     </View>
   );
 }
