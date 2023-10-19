@@ -1,7 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-import React, { useEffect, useState } from 'react'
-
 // Importing React Navigation
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -21,7 +19,7 @@ function App() {
           initialRouteName='Home'
           screenOptions={{
             headerStyle: {
-              backgroundColor: '#112D4E',
+              backgroundColor: 'black',
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -29,7 +27,6 @@ function App() {
             }
           }}  
         >
-
           <Stack.Screen
             name='Home'
             component={Home}

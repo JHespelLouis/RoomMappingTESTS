@@ -8,15 +8,15 @@ import InfoIcon from '@mui/icons-material/Info';
 
 export default function MapList() {
   return (
-    <ImageList sx={{ width: 500, height: 450 }}>
+    <ImageList sx={{ width: 700, height: 1000 }}>
       <ImageListItem key="Subheader" cols={2}>
         <ListSubheader component="div">Nombre de scans : {itemData.length}</ListSubheader>
       </ImageListItem>
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
           <img
-            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-            src={`${item.img}?w=248&fit=crop&auto=format`}
+            src={item.img}
+            srcSet={item.img}
             alt={item.title}
             loading="lazy"
           />
@@ -26,7 +26,8 @@ export default function MapList() {
             actionIcon={
               <IconButton
                 sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                aria-label={`info about ${item.title}`}
+                aria-label={`open ${item.title} in another tab`}
+                onClick={() => window.open(item.img, '_blank')}
               >
                 <InfoIcon />
               </IconButton>
@@ -36,89 +37,39 @@ export default function MapList() {
       ))}
     </ImageList>
   );
-
-  function handleImageLoad(imageUrl) {
-    const img = new Image();
-    img.src = imageUrl;
-    img.onload = () => {
-        consolr.log('Image loaded');
-    };
-    img.onerror = () => {
-        console.log('Image load failed');
-    };
-  }
 }
 
 const itemData = [
   {
-    img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-    title: 'Breakfast',
-    author: '@bkristastucchio',
+    img: require('../assets/parcelle.png'),
+    title: 'Plan 1',
     rows: 2,
     cols: 2,
     featured: true,
   },
   {
-    img: './assets/icon.png',
-    title: 'null',
-    author: 'null',
+    img: require('../assets/parcelle.png'),
+    title: 'Plan 2',
   },
   {
-    img: './assets/icon.png',
-    title: 'null',
-    author: 'null',
+    img: require('../assets/parcelle.png'),
+    title: 'Plan 3',
   },
   {
-    img: './assets/icon.png',
-    title: 'null',
-    author: 'null',
+    img: require('../assets/parcelle.png'),
+    title: 'Plan 4',
     cols: 2,
   },
   {
-    img: './assets/icon.png',
-    title: 'null',
-    author: 'null',
-    cols: 2,
+    img: require('../assets/parcelle.png'),
+    title: 'Plan 5',
   },
   {
-    img: './assets/icon.png',
-    title: 'null',
-    author: 'null',
-    rows: 2,
-    cols: 2,
-    featured: true,
+    img: require('../assets/parcelle.png'),
+    title: 'Plan 6',
   },
   {
-    img: './assets/icon.png',
-    title: 'null',
-    author: 'null',
-  },
-  {
-    img: './assets/icon.png',
-    title: 'null',
-    author: 'null',
-  },
-  {
-    img: './assets/icon.png',
-    title: 'null',
-    author: 'null',
-    rows: 2,
-    cols: 2,
-  },
-  {
-    img: './assets/icon.png',
-    title: 'null',
-    author: 'null',
-  },
-  {
-    img: './assets/icon.png',
-    title: 'null',
-    author: 'null',
-  },
-  {
-    img: './assets/icon.png',
-    title: 'null',
-    author: 'null',
-    cols: 2,
+    img: require('../assets/parcelle.png'),
+    title: 'Plan 7',
   },
 ];
