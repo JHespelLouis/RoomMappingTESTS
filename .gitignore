@@ -1,2 +1,4 @@
 
 .idea/
+Backend-transmission-images/keys/
+*.env
