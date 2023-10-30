@@ -1,42 +1,45 @@
 import * as React from 'react';
+import { Button, View, Text, StyleSheet } from 'react-native';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
-import InfoIcon from '@mui/icons-material/Info';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-export default function MapList() {
+function MapList() {
   return (
-    <ImageList sx={{ width: 700, height: 1000 }}>
-      <ImageListItem key="Subheader" cols={2}>
-        <ListSubheader component="div">Nombre de scans : {itemData.length}</ListSubheader>
-      </ImageListItem>
-      {itemData.map((item) => (
-        <ImageListItem key={item.img}>
-          <img
-            src={item.img}
-            srcSet={item.img}
-            alt={item.title}
-            loading="lazy"
-          />
-          <ImageListItemBar
-            title={item.title}
-            subtitle={item.author}
-            actionIcon={
-              <IconButton
-                sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                aria-label={`open ${item.title} in another tab`}
-                onClick={() => window.open(item.img, '_blank')}
-              >
-                <InfoIcon />
-              </IconButton>
-            }
-          />
+    <View style={styles.container}>
+      <ImageList sx={{ width: 700, height: 1000 }}>
+        <ImageListItem key="Subheader" cols={2}>
+          <ListSubheader component="div">Nombre de cartes : {itemData.length}</ListSubheader>
         </ImageListItem>
-      ))}
-    </ImageList>
-  );
+        {itemData.map((item) => (
+          <ImageListItem key={item.img}>
+            <img
+              src={item.img}
+              srcSet={item.img}
+              alt={item.title}
+              loading="lazy"
+            />
+            <ImageListItemBar
+              title={item.title}
+              subtitle={item.author}
+              actionIcon={
+                <IconButton
+                  sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
+                  aria-label={`open ${item.title} in another tab`}
+                  onClick={() => window.open(item.img, '_blank')}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+              }
+            />
+          </ImageListItem>
+        ))}
+      </ImageList>
+    </View>
+  )
 }
 
 const itemData = [
@@ -73,3 +76,13 @@ const itemData = [
     title: 'Plan 7',
   },
 ];
+
+const styles = StyleSheet.create({
+  container : {
+    flex : 1,
+    alignItems : 'center',
+    justifyContent : 'center',
+  }
+});
+
+export default MapList;

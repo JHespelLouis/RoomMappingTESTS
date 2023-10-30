@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, Button, Image, ImageBackground } from 'react-native'
 
-function Home({ navigation }) {
+function Home() {
 
   return (
     
     <View style={styles.container}>
 
       <ImageBackground
-        source={require('../assets/airsoft/inside-airsoft.jpg')}
+        source={require('../assets/airsoft/outside-airsoft.jpg')}
         style={styles.background}
       >
 
@@ -20,12 +20,6 @@ function Home({ navigation }) {
             Enhance your airsoft experience
           </Text>
         </View>
-
-        <Button
-          title="Historique des scans"
-          style={styles.button}
-          onPress={() => navigation.navigate('Historical')}
-        />
 
       </ImageBackground>
 
