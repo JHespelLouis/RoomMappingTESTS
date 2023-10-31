@@ -17,7 +17,7 @@ async function fetch(){
 }
 
 async function readData() {
-    const snapshot = await db.collection("data").get();
+    const snapshot = await db.collection("data").doc("maps").collection("user1").get();
     const maps = [];
     snapshot.forEach(doc => {
         maps.push({ mapId: doc.id, ...doc.data() })
