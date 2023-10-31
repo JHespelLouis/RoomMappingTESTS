@@ -13,9 +13,24 @@ admin.initializeApp({
 const db = getFirestore()
 
 async function fetch(){
-    console.log(await db.collection("maps").doc("JoCeQlYFT3Mg7hJFone6").get())
+    console.log(await db.collection("data").doc("maps").get())
+}
+
+async function readData() {
+    const snapshot = await db.collection("data").get();
+    const maps = [];
+    snapshot.forEach(doc => {
+        maps.push({ mapId: doc.id, ...doc.data() })
+    })
+    console.log(maps)
+    return maps;
 }
 
 const app = express()
 
-app.listen(5000, () => {console.log("server started on port 5000"); fetch()})
+app.get("/", async (req, res) => {
+    const data = await readData("data");
+    console.log(data)
+})
+
+app.listen(5000, () => {console.log("server started on port 5000"); readData()})
