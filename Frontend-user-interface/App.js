@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Button from '@mui/material/Button';
 import MapIcon from '@mui/icons-material/Map';
 import LoginIcon from '@mui/icons-material/Login';
@@ -18,7 +18,7 @@ const Stack = createNativeStackNavigator();
 
 function App() {
 
-  return (
+    return (
     <View style={{ flex: 1}}>
       <NavigationContainer>
         <Stack.Navigator 
