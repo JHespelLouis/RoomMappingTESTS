@@ -9,7 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { grey } from '@mui/material/colors';
 
-function MapOptions() {
+function MapOptions(...props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -41,6 +41,7 @@ function MapOptions() {
           <MenuItem onClick={()=>{console.log('modifying');handleClose()}}>Modifier</MenuItem>
           <MenuItem onClick={handleClose}>Supprimer</MenuItem>
           <MenuItem onClick={handleClose}>Publier</MenuItem>
+          <MenuItem onClick={()=>{handleClose();window.open(props[0]['img'], '_blank')}}>Agrandir</MenuItem>
         </Menu>
       </div>
   )
@@ -64,7 +65,7 @@ export default function MapList() {
                   title={item.title}
                   subtitle={item.author}
                   actionIcon={
-                    <MapOptions/>
+                    <MapOptions img={item.img}/>
                   }
               />
             </ImageListItem>
