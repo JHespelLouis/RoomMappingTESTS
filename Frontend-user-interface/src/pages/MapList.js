@@ -108,3 +108,11 @@ const itemData = [
     title: 'Plan 7',
   },
 ];
+
+const styles = {
+  container : {
+    flex : 1,
+    alignItems : 'center',
+    justifyContent : 'center',
+  }
+};
