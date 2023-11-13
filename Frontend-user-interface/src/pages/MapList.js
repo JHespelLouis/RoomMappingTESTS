@@ -21,7 +21,6 @@ function MapOptions(...props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [publishOpen, setPublishOpen] = React.useState(false);
     const open = Boolean(anchorEl);
-    const [popupContent, setPopupContent] = React.useState('statique')
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -35,16 +34,9 @@ function MapOptions(...props) {
     const handlePublishClose = () => {
         setPublishOpen(false);
     }
-    const handleRadioChange = (event: event) => {
-        setPopupContent(event.target.value);
-    };
-    const handleFinalPublish = () => {
-        console.log('placeholder function for publishing static map')
-    }
     return (
         <div>
             <IconButton
-                id="basic-button"
                 aria-controls={open ? 'basic-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
@@ -72,37 +64,51 @@ function MapOptions(...props) {
                     window.open(props[0]['img'], '_blank')
                 }}>Agrandir</MenuItem>
             </Menu>
-            <Dialog open={publishOpen} onClose={handlePublishClose}>
-                <DialogContent>
-                    <FormControl>
-                        <FormLabel>Type de map</FormLabel>
-                        <RadioGroup
-                            row
-                            value={popupContent}
-                            onChange={handleRadioChange}
-                        >
-                            <FormControlLabel value="statique" control={<Radio/>} label="statique"/>
-                            <FormControlLabel value="dynamique" control={<Radio/>} label="dynamique"/>
-                            <FormControlLabel value="group" control={<Radio/>} label="group"/>
-                        </RadioGroup>
-                    </FormControl>
-                    {popupContent === 'statique' && <div>
-                        <p>this will publish a static map</p>
-                        <Button onClick={handleFinalPublish}>Publish</Button>
-                    </div>}
-                    {popupContent === 'dynamique' && <div>
-                        <p>dynamique</p>
-                    </div>}
-                    {popupContent === 'group' && <div>
-                        <p>group</p>
-                    </div>}
-
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handlePublishClose}>Valider</Button>
-                </DialogActions>
-            </Dialog>
+            <Popup publishOpen={publishOpen} publishClose={handlePublishClose}/>
         </div>
+    )
+}
+
+function Popup(props) {
+    const [popupContent, setPopupContent] = React.useState('statique')
+
+    const handleRadioChange = (event: event) => {
+        setPopupContent(event.target.value);
+    };
+    const handlePlaceHolder = () => {
+        console.log('placeholder function for publishing static map')
+    }
+    return(
+        <Dialog open={props.publishOpen} onClose={props.publishClose}>
+            <DialogContent>
+                <FormControl>
+                    <FormLabel>Type de map</FormLabel>
+                    <RadioGroup
+                        row
+                        value={popupContent}
+                        onChange={handleRadioChange}
+                    >
+                        <FormControlLabel value="statique" control={<Radio/>} label="statique"/>
+                        <FormControlLabel value="dynamique" control={<Radio/>} label="dynamique"/>
+                        <FormControlLabel value="group" control={<Radio/>} label="group"/>
+                    </RadioGroup>
+                </FormControl>
+                {popupContent === 'statique' && <div>
+                    <p>this will publish a static map</p>
+                    <Button onClick={handlePlaceHolder}>Placeholder</Button>
+                </div>}
+                {popupContent === 'dynamique' && <div>
+                    <p>dynamique</p>
+                </div>}
+                {popupContent === 'group' && <div>
+                    <p>group</p>
+                </div>}
+
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={props.publishClose}>Valider</Button>
+            </DialogActions>
+        </Dialog>
     )
 }
 
