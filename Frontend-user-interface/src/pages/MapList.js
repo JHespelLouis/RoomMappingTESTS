@@ -8,6 +8,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { grey } from '@mui/material/colors';
+import Box from "@mui/material/Box";
 
 function MapOptions(...props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -19,7 +20,7 @@ function MapOptions(...props) {
     setAnchorEl(null);
   };
   return(
-      <div>
+      <Box>
         <IconButton
             id="basic-button"
             aria-controls={open ? 'basic-menu' : undefined}
@@ -43,13 +44,14 @@ function MapOptions(...props) {
           <MenuItem onClick={handleClose}>Publier</MenuItem>
           <MenuItem onClick={()=>{handleClose();window.open(props[0]['img'], '_blank')}}>Agrandir</MenuItem>
         </Menu>
-      </div>
+      </Box>
   )
 }
 
 export default function MapList() {
   return (
-      <ImageList sx={{ width: 700, height: 1000 }}>
+      <Box style={{justifyContent:'center', display:'flex',height:'90vh'}} sx={{width:1}}>
+      <ImageList sx={{ width: '90%', height: '90vh'}}>
         <ImageListItem key="Subheader" cols={2}>
           <ListSubheader component="div">Nombre de scans : {itemData.length}</ListSubheader>
         </ImageListItem>
@@ -71,6 +73,7 @@ export default function MapList() {
             </ImageListItem>
         ))}
       </ImageList>
+      </Box>
   );
 }
 

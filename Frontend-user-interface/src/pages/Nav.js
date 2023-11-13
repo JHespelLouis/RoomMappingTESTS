@@ -23,24 +23,28 @@ export default function Nav() {
     return (
         <>
             <ThemeProvider theme={darkTheme}>
-                <Box sx={{ flexGrow: 1 }}>
-                    <AppBar position="static">
-                        <Toolbar>
-                            <Link to="/">
-                                <IconButton>
-                                    <RadarIcon/>
-                                </IconButton>
-                            </Link>
-                            <Link to="/maplist">
-                                <Button variant="outlined" startIcon={<MapIcon />}>
-                                    Mes cartes
-                                </Button>
-                            </Link>
-                            <Link to="/login">
-                                <Button variant="outlined" startIcon={<LoginIcon />}>
-                                    Connexion
-                                </Button>
-                            </Link>
+                <Box sx={{height:"10vh"}}>
+                    <AppBar sx={{height:"10vh"}} position="static">
+                        <Toolbar style={{width:"auto", justifyContent:"space-between", alignItems:'center'}}>
+                            <div>
+                                <Link to="/">
+                                    <IconButton>
+                                        <RadarIcon/>
+                                    </IconButton>
+                                </Link>
+                            </div>
+                            <div>
+                                <Link to="/maplist">
+                                    <Button variant="outlined" startIcon={<MapIcon />}>
+                                        Mes cartes
+                                    </Button>
+                                </Link>
+                                <Link to="/login">
+                                    <Button sx={{mr:2}} variant="outlined" startIcon={<LoginIcon />}>
+                                        Connexion
+                                    </Button>
+                                </Link>
+                            </div>
                         </Toolbar>
                     </AppBar>
                 </Box>
