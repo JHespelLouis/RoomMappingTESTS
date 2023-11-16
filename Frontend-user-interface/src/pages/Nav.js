@@ -35,7 +35,7 @@ export default function Nav() {
                             </div>
                             <div>
                                 <Link to="/maplist">
-                                    <Button variant="outlined" startIcon={<MapIcon />}>
+                                    <Button sx={{mr:2}} variant="outlined" startIcon={<MapIcon />}>
                                         Mes cartes
                                     </Button>
                                 </Link>
