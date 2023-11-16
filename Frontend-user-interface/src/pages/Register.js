@@ -66,7 +66,7 @@ const navigate = useNavigate();
         setShowConfirmation(true); // Déclenche l'animation de confirmation
         setTimeout(() => {
           navigate('/login');
-        }, 2000);
+        }, 1500);
         // ...
       })
       .catch((error) => {

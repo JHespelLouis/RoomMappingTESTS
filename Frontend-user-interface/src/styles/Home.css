@@ -3,7 +3,8 @@
     background-image: url("../assets/airsoft/outside-airsoft.jpg");
     background-position: center;
     background-size: cover;
-    height: 100vh;
+    background-repeat: no-repeat;
+    height: 94vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
