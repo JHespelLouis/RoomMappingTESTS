@@ -16,6 +16,7 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import {FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material";
+import Box from "@mui/material/Box"
 
 function MapOptions(...props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -35,7 +36,7 @@ function MapOptions(...props) {
         setPublishOpen(false);
     }
     return (
-        <div>
+        <Box>
             <IconButton
                 aria-controls={open ? 'basic-menu' : undefined}
                 aria-haspopup="true"
@@ -65,7 +66,7 @@ function MapOptions(...props) {
                 }}>Agrandir</MenuItem>
             </Menu>
             <Popup publishOpen={publishOpen} publishClose={handlePublishClose}/>
-        </div>
+        </Box>
     )
 }
 
@@ -114,28 +115,30 @@ function Popup(props) {
 
 export default function MapList() {
     return (
-        <ImageList sx={{width: 700, height: 1000}}>
-            <ImageListItem key="Subheader" cols={2}>
-                <ListSubheader component="div">Nombre de scans : {itemData.length}</ListSubheader>
-            </ImageListItem>
-            {itemData.map((item) => (
-                <ImageListItem key={item.img}>
-                    <img
-                        src={item.img}
-                        srcSet={item.img}
-                        alt={item.title}
-                        loading="lazy"
-                    />
-                    <ImageListItemBar
-                        title={item.title}
-                        subtitle={item.author}
-                        actionIcon={
-                            <MapOptions img={item.img}/>
-                        }
-                    />
+        <Box style={{justifyContent:'center', display:'flex',height:'90vh'}} sx={{width:1}}>
+            <ImageList sx={{width: 700, height: 1000}}>
+                <ImageListItem key="Subheader" cols={2}>
+                    <ListSubheader component="div">Nombre de scans : {itemData.length}</ListSubheader>
                 </ImageListItem>
-            ))}
-        </ImageList>
+                {itemData.map((item) => (
+                    <ImageListItem key={item.img}>
+                        <img
+                            src={item.img}
+                            srcSet={item.img}
+                            alt={item.title}
+                            loading="lazy"
+                        />
+                        <ImageListItemBar
+                            title={item.title}
+                            subtitle={item.author}
+                            actionIcon={
+                                <MapOptions img={item.img}/>
+                            }
+                        />
+                    </ImageListItem>
+                ))}
+            </ImageList>
+        </Box>
     );
 }
 

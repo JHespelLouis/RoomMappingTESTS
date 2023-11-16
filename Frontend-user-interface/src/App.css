@@ -1,6 +1,11 @@
 .App {
   text-align: center;
   background-image: url("./assets/airsoft/inside-airsoft.jpg");
-  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 90vh;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5vh;
 }
