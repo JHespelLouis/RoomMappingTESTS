@@ -2,8 +2,8 @@ import '../App.css';
 
 export default function Home(){
     return(
-        <div className="App">
+        <box className="App">
             <h1 style={{color:'white'}}> RoomMapping</h1>
-        </div>
+        </box>
     )
 }
