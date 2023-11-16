@@ -1,19 +1,46 @@
 import React, { useState } from 'react';
-import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link as muiLink, Grid, Box, Typography, Container } from '@mui/material'
+import { Avatar, Button, CssBaseline, TextField, Link as muiLink, Grid, Box, Typography, Container } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { auth } from '../firebase';
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const defaultTheme = createTheme();
 
-export default function Login() {
+export function Login() {
+
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [badCredMessage, setBadCredMessage] = useState('');
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        navigate('/');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (errorCode === 'auth/invalid-login-credentials' || errorCode === 'auth/invalid-email') {
+          setBadCredMessage('Email ou mot de passe incorect');
+        }else if (errorCode === 'auth/too-many-requests') {
+          setBadCredMessage('Compte désactivé temporairement, veuillez réessayer plus tard');
+        }else if (errorCode === 'auth/user-not-found') {
+          setBadCredMessage('Aucun compte ne correspond à cet email');
+          
+        }else {
+          console.log(errorCode, errorMessage);
+        }
+      });
   };
 
   return (
@@ -42,6 +69,8 @@ export default function Login() {
               id="email"
               label="Adress email"
               name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               autoComplete="email"
               autoFocus
             />
@@ -50,11 +79,14 @@ export default function Login() {
               required
               fullWidth
               name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               label="Mot de passe"
               type="password"
               id="password"
               autoComplete="current-password"
             />
+            <Typography color="error">{badCredMessage}</Typography>
             <Button
               type="submit"
               fullWidth
@@ -66,15 +98,17 @@ export default function Login() {
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
-                  Mot de passe oublié?
+                  <muiLink variant="body2">
+                    {"Mot de passe oublié?"}
+                  </muiLink>
                 </Link>
               </Grid>
               <Grid item>
-                {/*<Link to="/Register">*/}
-                {/*  <muiLink variant="body2">*/}
-                {/*    {"Pas de compte ? Inscrivez-vous"}*/}
-                {/*  </muiLink>*/}
-                {/*</Link>*/}
+                <Link to="/Register">
+                  <muiLink variant="body2">
+                    {"Pas de compte ? Inscrivez-vous"}
+                  </muiLink>
+                </Link>
               </Grid>
             </Grid>
           </Box>
@@ -83,3 +117,5 @@ export default function Login() {
     </ThemeProvider>
   );
 }
+
+export default Login;

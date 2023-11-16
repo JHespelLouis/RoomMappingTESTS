@@ -1,14 +1,12 @@
+import "../styles/Nav.css"
+
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
+import { AppBar, Box, Toolbar, Button, IconButton } from '@mui/material';
 import MapIcon from '@mui/icons-material/Map';
 import LoginIcon from '@mui/icons-material/Login';
 import RadarIcon from '@mui/icons-material/Radar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import {Link, Outlet} from "react-router-dom"
+import {Link, Outlet} from "react-router-dom";
 
 const darkTheme = createTheme({
     palette: {
@@ -31,13 +29,13 @@ export default function Nav() {
                                     <RadarIcon/>
                                 </IconButton>
                             </Link>
-                            <Link to="/maplist">
-                                <Button variant="outlined" startIcon={<MapIcon />}>
+                            <Link to="/maplist" className="Button">
+                                <Button variant="outlined" endIcon={<MapIcon />}>
                                     Mes cartes
                                 </Button>
                             </Link>
                             <Link to="/login">
-                                <Button variant="outlined" startIcon={<LoginIcon />}>
+                                <Button variant="outlined" endIcon={<LoginIcon />}>
                                     Connexion
                                 </Button>
                             </Link>
