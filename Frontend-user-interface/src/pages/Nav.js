@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { AppBar, Box, Toolbar, Button, IconButton } from '@mui/material';
 import MapIcon from '@mui/icons-material/Map';
 import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import RadarIcon from '@mui/icons-material/Radar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import {Link, Outlet} from "react-router-dom";
@@ -34,15 +34,6 @@ export default function Nav() {
         }
     });
 
-    const logout = () => {
-        auth.signOut().then(() => {
-            console.log("User signed out");
-            setUser(null);
-        }).catch((error) => {
-            console.log(error);
-        });
-    }
-
     return (
         <>
             <ThemeProvider theme={darkTheme}>
@@ -63,9 +54,9 @@ export default function Nav() {
                                             Mes cartes
                                         </Button>
                                     </Link>
-                                    <Link to="/login" className="Button">
-                                        <Button variant="outlined" onClick={logout} endIcon={<LogoutIcon />}>
-                                            Se déconnecter
+                                    <Link to="/myaccount" className="Button">
+                                        <Button variant="outlined" endIcon={<AccountCircleIcon />}>
+                                            Mon profil
                                         </Button>
                                     </Link>
                                 </div>

@@ -16,10 +16,18 @@ export default function Register() {
 
 const navigate = useNavigate();
 
+  const [firstnameError, setFirstnameError] = useState('');
+  const [lastnameError, setLastnameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [accountExistsError, setAccountExistsError] = React.useState('');
-  const [showConfirmation, setShowConfirmation] = React.useState(false);
+  const [accountExistsError, setAccountExistsError] = useState('');
+  const [showConfirmation, setShowConfirmation] = useState(false);
+
+  function isValidName(name) {
+    // Format du nom : uniquement des lettres avec une longueur minimale de 2 caractères
+    const nameRegex = /^[A-Za-z]{2,}$/;
+    return nameRegex.test(name);
+  }
 
   function isValidEmail(email) {
     // Format de l'email
@@ -35,17 +43,29 @@ const navigate = useNavigate();
   }
 
   const confirmationAnimation = useSpring({
-    //Animation d'inscription
     opacity: showConfirmation ? 1 : 0,
     transform: showConfirmation ? 'translateY(0)' : 'translateY(-100%)',
+    color: showConfirmation ? '#00C853' : 'transparent', // Ajoutez cette ligne
   });
 
   const handleSubmit = (event) => {
 
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const firstname = data.get('firstname');
+    const lastname = data.get('lastname');
     const email = data.get('email');
     const password = data.get('password');
+
+    if (!isValidName(firstname)) {
+      setFirstnameError('Le format du prénom est incorrect');
+      return;
+    }
+  
+    if (!isValidName(lastname)) {
+      setLastnameError('Le format du nom de famille est incorrect');
+      return;
+    }    
 
     if (!isValidEmail(email)) {
       setEmailError('Le format de l\'email est incorrect');
@@ -62,10 +82,12 @@ const navigate = useNavigate();
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
+        const uid = user.uid;
+        console.log(uid);
         console.log(user);
         setShowConfirmation(true); // Déclenche l'animation de confirmation
         setTimeout(() => {
-          navigate('/login');
+          navigate('/');
         }, 1500);
         // ...
       })
@@ -101,7 +123,7 @@ const navigate = useNavigate();
             Inscrivez-vous
           </Typography>
           <animated.div style={confirmationAnimation}>
-            <Typography variant="body1">Le compte a été créé avec succès !</Typography>
+            <Typography variant="body1" style={{ color: confirmationAnimation.color }}>Le compte a été créé avec succès !</Typography>
           </animated.div>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -109,26 +131,30 @@ const navigate = useNavigate();
               required
               fullWidth
               id="firstname"
-              label="First name"
+              label="Prénom"
               name="firstname"
               autoComplete="firstname"
               autoFocus
+              error={!!firstnameError}
+              helperText={firstnameError}
             />
             <TextField
               margin="normal"
               required
               fullWidth
               id="lastname"
-              label="Last name"
+              label="Nom de famille"
               name="lastname"
               autoComplete="lastname"
+              error={!!lastnameError}
+              helperText={lastnameError}
             />
             <TextField
               margin="normal"
               required
               fullWidth
               id="email"
-              label="Adress email"
+              label="Adresse email"
               name="email"
               autoComplete="email"
               error={!!emailError}
