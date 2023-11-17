@@ -1,14 +1,15 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
+import "../styles/Nav.css"
+
+import React, { useState } from 'react';
+import { AppBar, Box, Toolbar, Button, IconButton } from '@mui/material';
 import MapIcon from '@mui/icons-material/Map';
 import LoginIcon from '@mui/icons-material/Login';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import RadarIcon from '@mui/icons-material/Radar';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import {Link, Outlet} from "react-router-dom"
+import {Link, Outlet} from "react-router-dom";
+
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const darkTheme = createTheme({
     palette: {
@@ -20,11 +21,24 @@ const darkTheme = createTheme({
 });
 
 export default function Nav() {
+
+    const [user, setUser] = useState(null);
+
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            console.log("User is signed in");
+            setUser(user);
+        } else {
+            console.log("User is signed out");
+        }
+    });
+
     return (
         <>
             <ThemeProvider theme={darkTheme}>
-                <Box sx={{height:"10vh"}}>
-                    <AppBar sx={{height:"10vh"}} position="static">
+                <Box>
+                    <AppBar position="static">
                         <Toolbar style={{width:"auto", justifyContent:"space-between", alignItems:'center'}}>
                             <div>
                                 <Link to="/">
@@ -33,18 +47,28 @@ export default function Nav() {
                                     </IconButton>
                                 </Link>
                             </div>
-                            <div>
-                                <Link to="/maplist">
-                                    <Button sx={{mr:2}} variant="outlined" startIcon={<MapIcon />}>
-                                        Mes cartes
-                                    </Button>
-                                </Link>
-                                <Link to="/login">
-                                    <Button sx={{mr:2}} variant="outlined" startIcon={<LoginIcon />}>
-                                        Connexion
-                                    </Button>
-                                </Link>
-                            </div>
+                            { user ? (
+                                <div>
+                                    <Link to="/maplist" className="Button">
+                                        <Button variant="outlined" endIcon={<MapIcon />}>
+                                            Mes cartes
+                                        </Button>
+                                    </Link>
+                                    <Link to="/myaccount" className="Button">
+                                        <Button variant="outlined" endIcon={<AccountCircleIcon />}>
+                                            Mon profil
+                                        </Button>
+                                    </Link>
+                                </div>
+                            ) : (
+                                <div>
+                                    <Link to="/login" className="Button">
+                                        <Button variant="outlined" endIcon={<LoginIcon />}>
+                                            Se connecter
+                                        </Button>
+                                    </Link>
+                                </div>
+                            )}
                         </Toolbar>
                     </AppBar>
                 </Box>

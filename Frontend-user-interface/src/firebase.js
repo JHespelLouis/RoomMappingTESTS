@@ -1,21 +1,17 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCgTMDZFE34kAzTXCYyHlR2S2mjfEhwVOM",
-  authDomain: "roommapping-enhance-exp.firebaseapp.com",
-  projectId: "roommapping-enhance-exp",
-  storageBucket: "roommapping-enhance-exp.appspot.com",
-  messagingSenderId: "1000583574",
-  appId: "1:1000583574:web:79ed57486ecd415a27edb7"
+  apiKey: "AIzaSyB13ENRoOYEaalMbFrT8o7ASPozdnB8J44",
+  authDomain: "roommapping-group-5.firebaseapp.com",
+  projectId: "roommapping-group-5",
+  storageBucket: "roommapping-group-5.appspot.com",
+  messagingSenderId: "1043815402453",
+  appId: "1:1043815402453:web:7f0037a654ac2bd88d8b5c"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-// Initialize Firebase Authentication and get a reference to the service
-const auth = getAuth(app);
+const app = firebase.initializeApp(firebaseConfig);
+const auth = app.auth();
 
 export { auth };
