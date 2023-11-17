@@ -37,3 +37,6 @@ yarn-error.*
 #webstorm settings
 .idea
 .idea/workspace.xml
+
+Backend-user-interface/keys/
+Backend-user-interface/.env
