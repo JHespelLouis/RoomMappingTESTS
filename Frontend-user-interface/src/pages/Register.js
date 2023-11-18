@@ -7,6 +7,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
+import { getFirestore, collection, addDoc, doc, setDoc } from "firebase/firestore"; // Firestore
+
 //Animation d'inscription
 import { useSpring, animated } from 'react-spring';
 
@@ -82,14 +84,31 @@ const navigate = useNavigate();
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
-        const uid = user.uid;
-        console.log(uid);
         console.log(user);
+
+        // Ajout des données dans Firestore
+        const db = getFirestore();
+        const docRef = doc(db, "users", user.uid)
+        const data = {
+          uid: user.uid,
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          maps: [],
+        };
+
+        setDoc(docRef, data)
+          .then((docRef) => {
+            console.log("Document written with ID: ", docRef.id);
+          })
+          .catch((error) => {
+            console.error("Error adding document: ", error);
+          });
+
         setShowConfirmation(true); // Déclenche l'animation de confirmation
         setTimeout(() => {
           navigate('/');
         }, 1500);
-        // ...
       })
       .catch((error) => {
         const errorCode = error.code;
