@@ -4,11 +4,11 @@ const express = require('express');
 const {FieldValue} = require("firebase-admin/firestore");
 const router = express.Router();
 
-router.post('/', upload.single('file'), async function (req, res, next) {
+router.post('/:userId/upload', upload.single('file'), async function (req, res, next) {
 
     let response = req.file.location
+    const userId = req.params.userId;
     res.send('Successfully uploaded ' + req.file.location + ' location!')
-    const userId = "ujjdY34Ui8S7ivFwoZy3rZrTLWp2";
     const usersCollection = db.collection('users');
     const userDoc = usersCollection.doc(userId)
     await userDoc.update({
