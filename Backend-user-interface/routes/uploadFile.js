@@ -9,10 +9,9 @@ router.post('/:userId/upload', upload.single('file'), async function (req, res, 
     let response = req.file.location
     const userId = req.params.userId;
     res.send('Successfully uploaded ' + req.file.location + ' location!')
-    const usersCollection = db.collection('users');
-    const userDoc = usersCollection.doc(userId)
-    await userDoc.update({
-        maps: FieldValue.arrayUnion(response)
+    const mapsCollection = db.collection(`users/${userId}/maps`);
+    await mapsCollection.add({
+        url: response
     })
         .then(() => {
             console.log('Élément ajouté avec succès dans le tableau "maps" pour le user ' + userId);
