@@ -7,7 +7,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-import { getFirestore, collection, addDoc, doc, setDoc } from "firebase/firestore"; // Firestore
+import { getFirestore, doc, setDoc } from "firebase/firestore"; // Firestore
 
 //Animation d'inscription
 import { useSpring, animated } from 'react-spring';
@@ -40,7 +40,7 @@ const navigate = useNavigate();
   function isValidPassword(password) {
     // Format du mot de passe
     // Au moins 8 caractères avec au moins une lettre majuscule, une lettre minuscule et un chiffre
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z0-9!@#$%^&*()_]{8,}$/;
     return passwordRegex.test(password);
   }
 
@@ -94,7 +94,6 @@ const navigate = useNavigate();
           firstname: firstname,
           lastname: lastname,
           email: email,
-          maps: [],
         };
 
         setDoc(docRef, data)
