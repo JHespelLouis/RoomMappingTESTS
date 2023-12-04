@@ -1,28 +1,20 @@
 import * as React from 'react';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
-import ListSubheader from '@mui/material/ListSubheader';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import { ImageList, ImageListItem, ImageListItemBar, ListSubheader, IconButton, Menu, MenuItem, Box,
+    DialogActions, DialogContent, Button, Dialog, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup
+} from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useNavigate } from "react-router-dom";
 import {grey} from '@mui/material/colors';
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import {FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material";
-import Box from "@mui/material/Box"
 import {redirect} from "react-router-dom";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {useEffect, useState} from "react";
 
 function MapOptions(...props) {
+    const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [publishOpen, setPublishOpen] = React.useState(false);
     const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
@@ -34,6 +26,11 @@ function MapOptions(...props) {
     };
     const handlePublishClose = () => {
         setPublishOpen(false);
+    }
+    const toMapEditor = () => {
+        navigate('/mapEditor', {
+            state: props[0]['id']
+        })
     }
     return (
         <Box>
@@ -54,10 +51,7 @@ function MapOptions(...props) {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={() => {
-                    console.log('modifying');
-                    handleClose()
-                }}>Modifier</MenuItem>
+                <MenuItem onClick={toMapEditor}>Modifier</MenuItem>
                 <MenuItem onClick={handleClose}>Supprimer</MenuItem>
                 <MenuItem onClick={handlePublish}>Publier</MenuItem>
                 <MenuItem onClick={() => {
@@ -73,7 +67,7 @@ function MapOptions(...props) {
 function Popup(props) {
     const [popupContent, setPopupContent] = React.useState('statique')
 
-    const handleRadioChange = (event: event) => {
+    const handleRadioChange = (event) => {
         setPopupContent(event.target.value);
     };
     const handlePlaceHolder = () => {
@@ -178,7 +172,7 @@ export default function MapList() {
                                 title={item.title}
                                 subtitle={item.author}
                                 actionIcon={
-                                    <MapOptions img={item.img}/>
+                                    <MapOptions img={item.img} id={item.id}/>
                                 }
                             />
                         </ImageListItem>
