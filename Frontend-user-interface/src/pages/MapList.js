@@ -5,6 +5,7 @@ import { ImageList, ImageListItem, ImageListItemBar, ListSubheader, IconButton, 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from "react-router-dom";
 import {grey} from '@mui/material/colors';
+import GameList from "./GameList";
 import {redirect} from "react-router-dom";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {useEffect, useState} from "react";
@@ -13,6 +14,7 @@ function MapOptions(...props) {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [publishOpen, setPublishOpen] = React.useState(false);
+    const [matchPopupOpen, setMatchPopupOpen] = React.useState(false);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -27,11 +29,18 @@ function MapOptions(...props) {
     const handlePublishClose = () => {
         setPublishOpen(false);
     }
+
+    const handleMatchPopup = () => {
+        setMatchPopupOpen(true);
+        handleClose();
+    };
+
     const toMapEditor = () => {
         navigate('/mapEditor', {
             state: props[0]['id']
         })
     }
+    
     return (
         <Box>
             <IconButton
@@ -54,12 +63,14 @@ function MapOptions(...props) {
                 <MenuItem onClick={toMapEditor}>Modifier</MenuItem>
                 <MenuItem onClick={handleClose}>Supprimer</MenuItem>
                 <MenuItem onClick={handlePublish}>Publier</MenuItem>
+                <MenuItem onClick={handleMatchPopup}>Matchs</MenuItem>
                 <MenuItem onClick={() => {
                     handleClose();
                     window.open(props[0]['img'], '_blank')
                 }}>Agrandir</MenuItem>
             </Menu>
-            <Popup publishOpen={publishOpen} publishClose={handlePublishClose}/>
+            <Popup publishOpen={publishOpen} publishClose={handlePublishClose} mapId={props[0]['id']}/>
+            <MatchPopup open={matchPopupOpen} onClose={() => setMatchPopupOpen(false)} mapId={props[0]['id']}/>
         </Box>
     )
 }
@@ -73,39 +84,55 @@ function Popup(props) {
     const handlePlaceHolder = () => {
         console.log('placeholder function for publishing static map')
     }
-    return (
-        <Dialog open={props.publishOpen} onClose={props.publishClose}>
-            <DialogContent>
-                <FormControl>
-                    <FormLabel>Type de map</FormLabel>
-                    <RadioGroup
-                        row
-                        value={popupContent}
-                        onChange={handleRadioChange}
-                    >
-                        <FormControlLabel value="statique" control={<Radio/>} label="statique"/>
-                        <FormControlLabel value="dynamique" control={<Radio/>} label="dynamique"/>
-                        <FormControlLabel value="group" control={<Radio/>} label="group"/>
-                    </RadioGroup>
-                </FormControl>
-                {popupContent === 'statique' && <div>
-                    <p>this will publish a static map</p>
-                    <Button onClick={handlePlaceHolder}>Placeholder</Button>
-                </div>}
-                {popupContent === 'dynamique' && <div>
-                    <p>dynamique</p>
-                </div>}
-                {popupContent === 'group' && <div>
-                    <p>group</p>
-                </div>}
+    const handleValidate = () => {
+        console.log('validate function for publishing static map')
 
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={props.publishClose}>Valider</Button>
-            </DialogActions>
-        </Dialog>
-    )
+        return (
+            <Dialog open={props.publishOpen} onClose={props.publishClose}>
+                <DialogContent>
+                    <FormControl>
+                        <FormLabel>Type de map</FormLabel>
+                        <RadioGroup
+                            row
+                            value={popupContent}
+                            onChange={handleRadioChange}
+                        >
+                            <FormControlLabel value="statique" control={<Radio/>} label="statique"/>
+                            <FormControlLabel value="dynamique" control={<Radio/>} label="dynamique"/>
+                        </RadioGroup>
+                    </FormControl>
+                    {popupContent === 'statique' && <div>
+                        <p>this will publish a static map</p>
+                        <Button onClick={handlePlaceHolder}>Placeholder</Button>
+                    </div>}
+                    {popupContent === 'dynamique' && <div>
+                        <p>dynamique</p>
+                    </div>}
+                </DialogContent>
+                {popupContent !== 'group' && (
+                    <DialogActions>
+                        <Button onClick={handleValidate}>
+                            Valider
+                        </Button>
+                    </DialogActions>
+                )}
+            </Dialog>
+        )
+    }
 }
+
+function MatchPopup(props) {
+    const handleValidate = () => {
+        console.log('validate function for match popup');
+    };
+
+    return (
+        <Dialog open={props.open} onClose={props.onClose}>
+            <GameList mapId={props.mapId}/>
+        </Dialog>
+    );
+}
+
 
 export default function MapList() {
     const [isLoaded, setIsLoaded] = useState(false);
