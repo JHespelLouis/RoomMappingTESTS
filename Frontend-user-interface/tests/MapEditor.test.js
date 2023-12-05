@@ -7,6 +7,9 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
+const fetch = require('node-fetch');
+global.fetch = fetch;
+
 // Define variables for the Firebase app and auth instances
 let app;
 let auth;
@@ -41,9 +44,11 @@ describe('MapEditor', () => {
      * This test renders the MapEditor component inside a Router component,
      * and then checks if the text 'Edition de carte' is present in the document.
      */
-    test('renders MapEditor component', () => {
+    test('renders MapEditor component', async () => {
         render(<Router><MapEditor /></Router>);
-        expect(screen.getByText('Edition de carte')).toBeInTheDocument();
+        // Use findByText to wait for the text to be present
+        const element = await screen.findByText('Edition de carte');
+        expect(element).toBeInTheDocument();
     });
 
     /**
