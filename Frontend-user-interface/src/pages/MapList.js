@@ -80,7 +80,7 @@ function MapOptions(...props) {
     };
     const toMapEditor = () => {
         navigate('/mapEditor', {
-            state: props[0]['id']
+            state: props[0]['mapId']
         })
     }
     return (
@@ -318,7 +318,7 @@ export default function MapList() {
                                 title={item.filename}
                                 subtitle={item.author}
                                 actionIcon={
-                                    <MapOptions img={item.img} id={item.id} name={item.filename}/>
+                                    <MapOptions img={item.img} id={item.id} name={item.filename} mapId={item.id}/>
                                 }
                             />
                         </ImageListItem>
