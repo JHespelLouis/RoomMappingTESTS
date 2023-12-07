@@ -87,7 +87,7 @@ const MyAccount = () => {
 
     return (
         <Box className="account-container">
-            <Card elevation={10} style={{ backgroundColor: '#f5f5f5', border: '1px solid #f5f5f5', width: '20%', height: '50%' }}>
+            <Card elevation={10} style={{ backgroundColor: '#f5f5f5', border: '1px solid #f5f5f5', width: '80%', maxWidth: '500px', minWidth: '300px', height: '80%', maxHeight: '500px', minHeight: '300px' }}>
                 <CardContent>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
                         <Typography variant="h3" component="h1" className="account-title">Mon Compte</Typography>
