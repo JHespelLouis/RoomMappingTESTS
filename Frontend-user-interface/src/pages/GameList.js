@@ -27,7 +27,7 @@ const GameList = (props) => {
     };
 
     const fetchGames = (uid) => {
-        fetch(`${apiUrl}/api/game/${uid}/${props.mapId}`)
+        fetch(`${apiUrl}api/game/${uid}/${props.mapId}`)
             .then(response => {
                 if (response.ok) {
                     return response.json()

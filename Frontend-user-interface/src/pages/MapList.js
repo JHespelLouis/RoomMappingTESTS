@@ -55,7 +55,7 @@ function MapOptions(...props) {
         const mapName = props[0]['name'];
 
         try {
-            const response = await fetch(`${apiUrl}/api/map/${uid}/${mapName}`, {
+            const response = await fetch(`${apiUrl}api/map/${uid}/${mapName}`, {
                 method: 'DELETE',
             });
             if (response.ok) {
@@ -257,7 +257,7 @@ export default function MapList() {
     const [itemData, setItemData] = useState([]);
 
     const fetchMaps = (uid) => {
-        fetch(`${apiUrl}/api/map/${uid}`)
+        fetch(`${apiUrl}api/map/${uid}`)
             .then(response => {
                 if (response.ok) {
                     return response.json()

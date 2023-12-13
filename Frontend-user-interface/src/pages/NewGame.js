@@ -86,7 +86,7 @@ const NewGame = (props) => {
             }));
 
             try {
-                const response = await fetch(`${apiUrl}/api/session`, {
+                const response = await fetch(`${apiUrl}api/session`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ const NewGame = (props) => {
                     roomId: generateRandomSessionId()
                 }))
             };
-            fetch(`${apiUrl}/api/game`, {
+            fetch(`${apiUrl}api/game`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
