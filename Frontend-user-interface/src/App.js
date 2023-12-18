@@ -9,6 +9,7 @@ import Nav from "./pages/Nav";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import MyAccount from "./pages/MyAccount";
+import Zoom from "./pages/Zoom";
 import MapEditor from './pages/MapEditor';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/myAccount" element={<MyAccount/>}/>
                 <Route path="/mapEditor" element={<MapEditor/>}/>
             </Route>
+            <Route path="/zoom" element={<Zoom/>}/>
         </Routes>
     );
 }
